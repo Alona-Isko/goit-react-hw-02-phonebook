@@ -1,10 +1,9 @@
-import React from 'react';
-import './App.css';
+import React, { Component } from 'react';
 import ContactList from './components/ContactList/ContactList';
+import './App.css';
 
 
-class App extends React.Component {
-  
+class App extends Component {
   state = {
     contacts: [
       {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
@@ -23,18 +22,48 @@ class App extends React.Component {
     }));
   };
 
+  handleChange = ev => {
+    // console.log(ev.currentTarget);
+    // console.log(ev.currentTarget.name);
+    // console.log(ev.currentTarget.value);
+    const { name, value } = ev.currentTarget;
+    this.setState({
+      [name]: value,
+    });
+  }
+
   render() {
     const { contacts } = this.state;
     return (
       <div>
         <h1>Phonebook</h1>
-        <div>
-          <h3>Name</h3>
-          <input></input>
-          <h3>Number</h3>
-          <input></input>
+        <form>
+          <label htmlFor="">
+            Name
+            <input
+              type="text"
+              name="name"
+              value={this.state.name}
+              onChange={this.handleChange}
+              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+              title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
+              required
+            />
+          </label>
+          <label htmlFor="">
+            Number
+            <input
+              type="tel"
+              name="number"
+              value={this.state.number}
+              onChange={this.handleChange}
+              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+              title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
+              required
+            />
+          </label>
           <button>Add contact</button>
-        </div>
+        </form>
 
         <div>
           <h2>Contacts</h2>
