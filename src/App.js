@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ContactForm from './components/ContactForm/ContactForm';
 import ContactList from './components/ContactList/ContactList';
 import './App.css';
 
@@ -12,8 +13,7 @@ class App extends Component {
       {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
     ],
     filter: '',
-    name: '',
-    number: ''
+    
   }
 
   deleteContact = contactId => {
@@ -22,14 +22,8 @@ class App extends Component {
     }));
   };
 
-  handleChange = ev => {
-    // console.log(ev.currentTarget);
-    // console.log(ev.currentTarget.name);
-    // console.log(ev.currentTarget.value);
-    const { name, value } = ev.currentTarget;
-    this.setState({
-      [name]: value,
-    });
+  formSubmitHandler = data => {
+    console.log(data);
   }
 
   render() {
@@ -37,33 +31,8 @@ class App extends Component {
     return (
       <div>
         <h1>Phonebook</h1>
-        <form>
-          <label htmlFor="">
-            Name
-            <input
-              type="text"
-              name="name"
-              value={this.state.name}
-              onChange={this.handleChange}
-              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
-              required
-            />
-          </label>
-          <label htmlFor="">
-            Number
-            <input
-              type="tel"
-              name="number"
-              value={this.state.number}
-              onChange={this.handleChange}
-              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-              title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
-              required
-            />
-          </label>
-          <button>Add contact</button>
-        </form>
+        
+        <ContactForm onSubmit={this.formSubmitHandler} />
 
         <div>
           <h2>Contacts</h2>
