@@ -2,29 +2,20 @@ import React, { Component } from 'react';
 import ContactForm from './components/ContactForm/ContactForm';
 import ContactList from './components/ContactList/ContactList';
 import Filter from './components/Filter/Filter';
-import './App.css';
+import contacts from './contacts.json';
+import s from './App.module.css';
 import shortid from 'shortid';
 
 
 class App extends Component {
   state = {
-    contacts: [
-      {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
-      {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
-      {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
-      {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
-    ],
+    contacts: contacts,
     filter: '',
   }
 
-  deleteContact = contactId => {
-    this.setState(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
-    }));
-  };
+  
 
-  addContact = ({name, number}) => {
-    
+  addContact = ({ name, number }) => {
     const contact = {
       id: shortid.generate(),
       name,
@@ -32,10 +23,19 @@ class App extends Component {
       completed: false,
     };
 
-    this.setState(prevState => ({
-      contacts: [contact, ...prevState.contacts],
-    }));
-  };
+    if (
+      contacts.find(
+        contact => contact.name.toLowerCase() === name.toLowerCase(),
+      )
+    ) {
+      alert(`${name} is already in contacts.`);
+    } else {
+      this.setState(({ contacts }) => ({
+        contacts: [contact, ...contacts],
+      }));
+    }
+  }
+
 
   changeFilter = (ev) => {
     this.setState({ filter: ev.currentTarget.value });
@@ -49,15 +49,22 @@ class App extends Component {
     );
   };
 
+  deleteContact = contactId => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
+    }));
+  };
+
+
   render() {
     return (
-      <div>
-        <h1>Phonebook</h1>
+      <div className={s.container}>
+        <h1 className={s.container__title}>Phonebook</h1>
         
         <ContactForm onSubmit={this.addContact} />
 
         <div>
-          <h2>Contacts</h2>
+          <h2 className={s.Contacts__title}>Contacts</h2>
           <Filter
             value={this.state.filter}
             onChange={this.changeFilter}

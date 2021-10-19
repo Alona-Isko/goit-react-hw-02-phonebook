@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
+import s from './ContactForm.module.css';
 import shortid from 'shortid';
 
 class ContactForm extends Component {
@@ -36,35 +37,53 @@ class ContactForm extends Component {
     }
 
     render() {
+        const { name, number } = this.state;
         return (
             <form onSubmit={this.handleSubmit}>
-                <label htmlFor={this.nameId}>
+                <label
+                    className={s.form__title}
+                    htmlFor={this.nameId}
+                >
                     Name
+                </label>
                     <input
                     type="text"
+                    className={s.form__input}
                     name="name"
                     id={this.nameId}
-                    value={this.state.name}
+                    value={name}
                     onChange={this.handleChange}
                     pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
                     title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
+                    placeholder="Enter name"
                     required
                     />
-                </label>
-                <label htmlFor={this.numberId}>
+                
+                <label
+                    className={s.form__title}
+                    htmlFor={this.numberId}
+                >
                     Number
+                </label>
                     <input
                     type="tel"
+                    className={s.form__input}
                     name="number"
                     id={this.numberId}
-                    value={this.state.number}
+                    value={number}
                     onChange={this.handleChange}
                     pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
                     title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
+                    placeholder="Enter phone number"
                     required
                     />
-                </label>
-                <button type="submit">Add contact</button>
+                
+                <button
+                    className={s.form__button}
+                    type="submit"
+                >
+                    Add contact
+                </button>
             </form>
         );
     }
