@@ -13,8 +13,6 @@ class App extends Component {
     filter: '',
   }
 
-  
-
   addContact = ({ name, number }) => {
     const contact = {
       id: shortid.generate(),
@@ -35,7 +33,6 @@ class App extends Component {
       }));
     }
   }
-
 
   changeFilter = (ev) => {
     this.setState({ filter: ev.currentTarget.value });
