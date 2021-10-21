@@ -22,7 +22,7 @@ class App extends Component {
     };
 
     if (
-      contacts.find(
+      this.state.contacts.find(
         contact => contact.name.toLowerCase() === name.toLowerCase(),
       )
     ) {
